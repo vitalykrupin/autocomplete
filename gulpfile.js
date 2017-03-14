@@ -51,7 +51,7 @@ function build (type) {
     })
     .pipe(source(type + '.js'))
     .pipe(buffer())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('./js/'));
 
     gulp.src(['./frontend/templates/' + type + '.jade'])

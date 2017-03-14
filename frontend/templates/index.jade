@@ -7,8 +7,9 @@ html
     link(rel="stylesheet", href="/css/index.css")
     script(async="true", src="/js/index.js")
 
-  body(class="main")
-    div(class="autocomplete")
-      input(class="autocomplete__input" type="text" placeholder="Начните вводить код или название")
-      span(class="autocomplete__close") Close
-      div(class="autocomplete__drop")
+  body
+    .autocomplete
+      input.autocomplete__input(type="text" placeholder="Начните вводить код или название")
+
+      .autocomplete__drop
+        
