@@ -50,7 +50,7 @@ function search(queryStr, data) {
 }
 
 function substring (str, substr) {
-   return str.toLowerCase().indexOf(substr.toLowerCase()) >= 0
+   return str.toLowerCase().indexOf(substr.toLowerCase()) === 0
 }
 
 function showDropDown (data) {
