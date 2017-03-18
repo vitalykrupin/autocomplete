@@ -1,12 +1,9 @@
-import data from '../../json/kladr.json'
+import AutocompleteRequest from './request'
 import Autocomplete from './autocomplete'
 
 function App() {
-   Autocomplete(loadData());
-}
-
-function loadData() {
-   return data;
+  let autocompleteInit = Autocomplete;
+  let autocompleteRequest = AutocompleteRequest(autocompleteInit);
 }
 
 App();

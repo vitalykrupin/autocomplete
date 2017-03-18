@@ -1,11 +1,10 @@
-
 .autocomplete
    color: #666
    position: relative
    width: 279px
 
 .autocomplete__input
-  padding: 10px 10px
+  padding: 10px 28px 10px 10px
   font-family: SegoeUIRegular, sans-serif
   font-weight: 300
   width: 100%
@@ -21,30 +20,51 @@
   color: #000
   border: 2px solid #5199db
 
-\::-webkit-input-placeholder:focus
-   color: pink
-   
-\::-moz-placeholder:focus
-   color: pink
+.autocomplete__input_error
+  border: 2px solid #fa0000
 
-\:-ms-input-placeholder:focus
-   color: pink
+.autocomplete__input_error:focus
+  border-color: #ff9900
 
-\:-moz-placeholder:focus
-   color: pink
+.autocomplete__close
+  display: none
+  cursor: pointer
+  position: absolute
+  right: 0
+  top: 0
+  height: 33px
+  width: 28px
+  text-align: center
+  opacity: .5
+
+  &:before
+    font-family: Icon
+    content: ''
+    line-height: 31px
+
+  &:hover
+    opacity: 1
+
+.autocomplete__close_visible
+  display: block
 
 .autocomplete__drop
   position: absolute
-  overflow: scroll
+  overflow-x: hidden
+  overflow-y: scroll
   min-width: 100%
-  min-height: 250px
   max-height: 450px
   width: 341px
-  
+  border: 1px solid rgba(0, 0, 0, .25)
+  box-shadow: 0px 0px 10px #ccc
+  margin-top: -1px
+
+  &:empty
+    display: none
+
 .autocomplete__item
-  padding: 14px
+  padding: 4px 8px
   background: #fff
-  max-height: 7px
 
   &:hover
     background: #5199db
