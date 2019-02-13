@@ -22,6 +22,5 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {},
-  "dependencies": {
-  }
+  "dependencies": {}
 }

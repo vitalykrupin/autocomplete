@@ -1,9 +1,9 @@
 import AutocompleteRequest from './request'
 import Autocomplete from './autocomplete'
 
-function App() {
-  let autocompleteInit = Autocomplete;
-  let autocompleteRequest = AutocompleteRequest(autocompleteInit);
-}
+const App = () => {
+  const autocompleteInit = Autocomplete;
+  const autocompleteRequest = AutocompleteRequest(autocompleteInit);
+};
 
 App();

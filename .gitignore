@@ -1,5 +1,6 @@
 **node_modules/
 **.DS_Store
+**.idea/
 css/index.css
 js/index.js
 index.html

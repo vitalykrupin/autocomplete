@@ -1,120 +1,118 @@
 const CLASS_NAMES = {
-   CLOSE_VISIBLE: 'autocomplete__close_visible',
-   ERROR: 'autocomplete__input_error'
-}
-
-const SELECTORS = {
-   AUTOCOMPLETE: '.autocomplete',
-   CLOSE: '.autocomplete__close',
-   INPUT: '.autocomplete__input',
-   DROP: '.autocomplete__drop'
+  CLOSE_VISIBLE: 'autocomplete__close_visible',
+  ERROR: 'autocomplete__input_error'
 };
 
-let container = document.querySelector(SELECTORS.AUTOCOMPLETE);
-let closeButton = document.querySelector(SELECTORS.CLOSE);
-let input = document.querySelector(SELECTORS.INPUT);
-let dropDown = document.querySelector(SELECTORS.DROP);
+const SELECTORS = {
+  AUTOCOMPLETE: '.autocomplete',
+  CLOSE: '.autocomplete__close',
+  INPUT: '.autocomplete__input',
+  DROP: '.autocomplete__drop'
+};
+
+const closeButton = document.querySelector(SELECTORS.CLOSE);
+const input = document.querySelector(SELECTORS.INPUT);
+const dropDown = document.querySelector(SELECTORS.DROP);
 let myData;
 
-export default function Autocomlete(data) {
-    if (!data) return;
-
-    myData = data;
-
-    decorate();
+export default function (data) {
+  if (!data) return;
+  
+  myData = data;
+  
+  decorate();
 }
 
-function decorate() {
-   closeButton.addEventListener('click', clearInputValue);
-   input.addEventListener('input', inputHandler);
-   dropDown.addEventListener('click', dropDownHandler)
-}
+const decorate = () => {
+  closeButton.addEventListener('click', clearInputValue);
+  input.addEventListener('input', inputHandler);
+  dropDown.addEventListener('click', dropDownHandler)
+};
 
-function inputHandler() {
-   if (input.value) {
-      showCloseButton();
-   } else {
-      hideCloseButton();
-   }
+const inputHandler = () => {
+  if (input.value) {
+    showCloseButton();
+  } else {
+    hideCloseButton();
+  }
+  
+  let dropDownData = search(input.value, myData);
+  renderDropDown(dropDownData);
+};
 
-   let dropDownData = search(input.value, myData);
-   renderDropDown(dropDownData);
-}
+const dropDownHandler = (event) => {
+  complete(event.target.innerHTML);
+};
 
-function dropDownHandler(event) {
-   complete(event.target.innerHTML);
-}
+const complete = (str) => {
+  input.value = str;
+  clearDropDown();
+};
 
-function complete(str) {
-   input.value = str;
-   clearDropDown();
-}
+const search = (queryStr, data) => {
+  if (!queryStr) {
+    return [];
+  }
+  
+  return data.filter(function (item) {
+    return substring(item.City, queryStr);
+  });
+};
 
-function search(queryStr, data) {
-   if (!queryStr) {
-      return [];
-   }
+const substring = (str, substr) => {
+  return str.toLowerCase().indexOf(substr.toLowerCase()) === 0
+};
 
-   let result = data.filter(function(item){
-      return substring(item.City, queryStr);
-   });
-
-   return result;
-}
-
-function substring (str, substr) {
-   return str.toLowerCase().indexOf(substr.toLowerCase()) === 0
-}
-
-function renderDropDown (data) {
-   clearDropDown();
-
-   if (!data.length) {
-      if (input.value){
-         showError();
-      } else {
-         hideError();
-      }
-      return;
-   } else {
+const renderDropDown = (data) => {
+  clearDropDown();
+  
+  if (!data.length) {
+    if (input.value){
+      showError();
+    } else {
       hideError();
-   }
-   
-   let html = '<ul class="autocomplete__list">';
-   
-   data.forEach(function(item, i, arr){
-      html += '<li class="autocomplete__item">' + item.City + '</li>'; 
-   });
+    }
+    return;
+  } else {
+    hideError();
+  }
+  
+  const html = `
+    <ul class="autocomplete__list">
+      ${data
+        .map((item) => `<li class="autocomplete__item">${item.City}</li>`)
+        .join(``)
+      }
+    </ul>
+  `;
+  
+  dropDown.innerHTML = html;
+};
 
-   html += '</ul>'
+const clearDropDown = () => {
+  dropDown.innerHTML = '';
+};
 
-   dropDown.innerHTML = html;
-}
+const showCloseButton = () => {
+  closeButton.classList.add(CLASS_NAMES.CLOSE_VISIBLE);
+};
 
-function clearDropDown() {
-   dropDown.innerHTML = '';
-}
+const hideCloseButton = () => {
+  closeButton.classList.remove(CLASS_NAMES.CLOSE_VISIBLE);
+};
 
-function showCloseButton() {
-   closeButton.classList.add(CLASS_NAMES.CLOSE_VISIBLE);
-}
+const clearInputValue = () => {
+  input.value = '';
+  clearDropDown();
+  hideCloseButton();
+  hideError();
+  input.focus();
+};
 
-function hideCloseButton() {
-   closeButton.classList.remove(CLASS_NAMES.CLOSE_VISIBLE);
-}
+const showError = () => {
+  input.classList.add(CLASS_NAMES.ERROR);
+};
 
-function clearInputValue() {
-   input.value = '';
-   clearDropDown();
-   hideCloseButton();
-   hideError();
-   input.focus();
-}
-
-function showError() {
-   input.classList.add(CLASS_NAMES.ERROR);
-}
-
-function hideError() {
-   input.classList.remove(CLASS_NAMES.ERROR);
-}
+const hideError = () => {
+  input.classList.remove(CLASS_NAMES.ERROR);
+};

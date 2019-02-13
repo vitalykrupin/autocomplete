@@ -1,5 +1,3 @@
-'use strict';
-
 const autoprefixer = require('gulp-autoprefixer');
 const babelify = require('babelify');
 const browserify = require('browserify');
